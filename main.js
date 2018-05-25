@@ -18,7 +18,13 @@ function createWindow() {
     titleBarStyle: "hidden"
   });
 
-  mainWindow.loadURL('http://localhost:8080');
+  // mainWindow.loadURL('http://localhost:8080');
+  // mainWindow.loadURL(path.join('file://', __dirname, 'dist', 'index.html'));
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'dist/index.html'),
+    protocol: 'file:',
+    slashes: true,
+  }));
   // mainWindow.loadURL(path.join(__dirname, 'dist', 'index.html'));
 
   // Open the DevTools.

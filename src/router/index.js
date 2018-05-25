@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Element from 'element-ui';
 import Router from 'vue-router';
-import SideBar from '@/components/SideBar';
+import HomePage from '@/components/HomePage';
 import SetUp from '@/components/SetUp';
+import SaveLoadMat from '@/components/SaveLoadMat';
 
 Vue.use(Router);
 Vue.use(Element);
@@ -11,13 +12,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SideBar',
-      component: SideBar,
+      name: 'HomePage',
+      component: HomePage,
+    },
+    {
+      path: '/homepage',
+      name: 'HomePage',
+      component: HomePage,
     },
     {
       path: '/setup',
       name: 'SetUp',
       component: SetUp,
+    },
+    {
+      path: '/saveloadmat',
+      name: 'SaveLoadMat',
+      component: SaveLoadMat,
     },
   ],
 });

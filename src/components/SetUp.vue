@@ -1,26 +1,51 @@
 <template>
-  <el-row class="demo-autocomplete">
-    <Steps/>
-    <el-col :span="12">
-      <div class="sub-title">激活即列出输入建议</div>
-      <el-autocomplete
-        class="inline-input"
-        v-model="state1"
-        :fetch-suggestions="querySearch"
-        placeholder="请输入内容"
-        @select="handleSelect"
-      ></el-autocomplete>
-      nm/pixel
-    </el-col>
-  </el-row>
+  <div>
+    <el-container>
+      <el-aside width="64px">
+        <SideBar/>
+      </el-aside>
+      <el-container>
+        <el-header style="padding: 0px">
+          <LHeader/>
+        </el-header>
+        <el-main>
+          <el-row class="demo-autocomplete">
+            <el-col :span="12">
+              <Steps/>
+              <div class="sub-title"></div>
+              <el-autocomplete
+                class="inline-input"
+                v-model="state1"
+                :fetch-suggestions="querySearch"
+                placeholder="请输入内容"
+                @select="handleSelect"
+              ></el-autocomplete>
+              nm/pixel
+            </el-col>
+          </el-row>
+        </el-main>
+        <el-footer>
+          <LFooter/>
+        </el-footer>
+      </el-container>
+    </el-container>
+  </div>
+
+
 </template>
 
 <script>
+  import LHeader from './LHeader';
+  import SideBar from './SideBar';
+  import LFooter from './LFooter';
   import Steps from './Steps';
 
   export default {
     name: 'SetUp',
-    comments: {
+    components: {
+      'SideBar': SideBar,
+      'LHeader': LHeader,
+      'LFooter': LFooter,
       'Steps': Steps,
     },
     data() {

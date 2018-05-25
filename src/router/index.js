@@ -1,15 +1,23 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Vue from 'vue';
+import Element from 'element-ui';
+import Router from 'vue-router';
+import SideBar from '@/components/SideBar';
+import SetUp from '@/components/SetUp';
 
-Vue.use(Router)
+Vue.use(Router);
+Vue.use(Element);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
-})
+      name: 'SideBar',
+      component: SideBar,
+    },
+    {
+      path: '/setup',
+      name: 'SetUp',
+      component: SetUp,
+    },
+  ],
+});

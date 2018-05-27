@@ -1,17 +1,19 @@
 <template>
   <div>
-    <el-container>
-      <el-aside width="65px">
+    <el-container style="height: 800px">
+      <el-aside width="65px" style="background: white">
         <SideBar/>
       </el-aside>
       <el-container>
         <el-header style="padding: 0px">
           <LHeader/>
         </el-header>
-        <el-main style="background: white">
-          This is HomePage
+        <el-main style="background-color: #e4e4e4">
+          <div align="center">
+          <img src="../assets/llmt2.png"/>
+          </div>
         </el-main>
-        <el-footer style="background: white">
+        <el-footer style="background: #e4e4e4">
           <LFooter/>
         </el-footer>
       </el-container>

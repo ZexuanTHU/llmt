@@ -9,7 +9,7 @@
         @close="handleClose"
         router="true">
         <el-menu-item index="0" route="HomePage">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-llmt-home"></i>
           <span slot="title">LLMT</span>
         </el-menu-item>
         <el-submenu index="1">
@@ -20,11 +20,11 @@
           <el-menu-item-group>
             <template slot="title">Pre Settings</template>
             <el-menu-item index="1-1" route="SetUp">
-              <i class="el-icon-setting"/>
+              <i class="el-icon-setting"></i>
               Set Up
             </el-menu-item>
             <el-menu-item index="1-2" route="SaveLoadMat">
-              <i class="el-icon-document"/>
+              <i class="el-icon-document"></i>
               Load/Save .mat
             </el-menu-item>
             <el-menu-item index="1-3">
@@ -93,4 +93,5 @@
 </script>
 
 <style>
+  @import "../assets/icon/iconfont.css";
 </style>

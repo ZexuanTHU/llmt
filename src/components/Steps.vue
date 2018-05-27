@@ -5,7 +5,7 @@
       <el-step title="Interval"></el-step>
       <el-step title="Check Config"></el-step>
     </el-steps>
-    <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
+    <el-button style="margin-top: 12px;" @click="next">Save</el-button>
   </div>
 </template>
 

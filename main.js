@@ -18,14 +18,14 @@ function createWindow() {
     titleBarStyle: "hidden"
   });
 
-  // mainWindow.loadURL('http://localhost:8080');
-  // mainWindow.loadURL(path.join('file://', __dirname, 'dist', 'index.html'));
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'dist/index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
-  // mainWindow.loadURL(path.join(__dirname, 'dist', 'index.html'));
+  // This config is for development environment
+  mainWindow.loadURL('http://localhost:8080');
+  // while this for production environment
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'dist/index.html'),
+  //   protocol: 'file:',
+  //   slashes: true,
+  // }));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

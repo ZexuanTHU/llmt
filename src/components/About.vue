@@ -1,12 +1,31 @@
 <template>
   <div>
-    This software was developed by Shian@Liang Lab, SLS, Tsinghua University,
-    Beijing, China.
+    <el-container style="height: 800px;">
+      <el-aside width="65px" style="background: white">
+        <LSide/>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <LHeader></LHeader>
+        </el-header>
+        <el-main style="background-color: #e4e4e4">
+          This software was developed by Shian@Liang Lab
+        </el-main>
+        <el-footer style="background-color: #e4e4e4">
+          <LFooter/>
+        </el-footer>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
+  import LSide from './LSide';
+  import LHeader from './LHeader';
+  import LFooter from './LFooter';
+
   export default {
     name: 'About',
+    components: {LSide, LHeader, LFooter},
   };
 </script>

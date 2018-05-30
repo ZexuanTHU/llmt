@@ -1,25 +1,10 @@
 <template>
-  <el-menu
-    :default-active="activeIndex2"
-    class="el-menu-demo"
-    mode="horizontal"
-    @select="handleSelect">
-    <el-menu-item index="1">Task</el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">Workstation</template>
-      <el-menu-item index="2-1">选项1</el-menu-item>
-      <el-menu-item index="2-2">选项2</el-menu-item>
-      <el-menu-item index="2-3">选项3</el-menu-item>
-      <el-submenu index="2-4">
-        <template slot="title">选项4</template>
-        <el-menu-item index="2-4-1">选项1</el-menu-item>
-        <el-menu-item index="2-4-2"> 选项2</el-menu-item>
-        <el-menu-item index="2-4-3">选项3</el-menu-item>
-      </el-submenu>
-    </el-submenu>
-    <el-menu-item index="3" disabled>Log</el-menu-item>
-    <el-menu-item index="4"><a href="https://www.ele.me"
-                               target="_blank">About</a></el-menu-item>
+  <el-menu mode="horizontal" default-active="activeIndex" menu-trigger="click"
+           @select="handleSelect" router="true">
+    <el-menu-item index="1">Workspace</el-menu-item>
+    <el-menu-item index="2">Tasks</el-menu-item>
+    <el-menu-item index="3">Script</el-menu-item>
+    <el-menu-item index="4" route="About">About</el-menu-item>
   </el-menu>
 </template>
 
@@ -27,13 +12,12 @@
   export default {
     data() {
       return {
-        activeIndex: '1',
-        activeIndex2: '1',
+        activeIndex: 1,
+        aboutLink: 'https://www.github.com/ZexuanTHU/llmt/',
       };
     },
     methods: {
-      handleSelect(parameters) {
-        let {key, keyPath} = parameters;
+      handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
     },

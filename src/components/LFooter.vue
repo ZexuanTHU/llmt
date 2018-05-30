@@ -1,11 +1,13 @@
 <template>
-  <div>
-    LLMT - Powered by Shian@Liang Lab
-  </div>
+  <div></div>
 </template>
 
 <script>
   export default {
-    name: 'LFooter',
+    data() {
+      return {
+
+      };
+    },
   };
 </script>

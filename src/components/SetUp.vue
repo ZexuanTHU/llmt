@@ -1,37 +1,42 @@
 <template>
   <div>
-    <el-container>
+    <el-container style="height: 800px">
       <el-aside width="65px">
         <SideBar/>
       </el-aside>
       <el-container>
-        <el-header style="padding: 0px">
+        <el-header>
           <LHeader/>
         </el-header>
-        <el-main>
-          <el-row class="demo-autocomplete">
-            <el-col :span="12">
-              <el-steps :active="active" finish-status="success">
-                <el-step title="Scale"></el-step>
-                <el-step title="Interval"></el-step>
-                <el-step title="Check Config"></el-step>
-              </el-steps>
-              <div class="sub-title"></div>
-              <el-autocomplete
-                class="inline-input"
-                v-model="state1"
-                :fetch-suggestions="querySearch"
-                placeholder="请输入内容"
-                @select="handleSelect"
-              ></el-autocomplete>
-              nm/pixel
-              <br/>
-              <el-button style="margin-top: 12px;" @click="next">Save
-              </el-button>
-            </el-col>
-          </el-row>
+        <el-main style="background-color: #e4e4e4; ">
+          <div style="background: white; padding: 10px;">
+            <el-row class="demo-autocomplete">
+              <el-col :span="12">
+                <el-steps :active="active" finish-status="success">
+                  <el-step title="Scale"></el-step>
+                  <el-step title="Interval"></el-step>
+                  <el-step title="Check Config"></el-step>
+                </el-steps>
+                <div class="sub-title"></div>
+                <el-autocomplete
+                  class="inline-input"
+                  v-model="state1"
+                  :fetch-suggestions="querySearch"
+                  placeholder="请输入内容"
+                  @select="handleSelect"
+                >
+                </el-autocomplete>
+                <div v-if="this.active===0">nm/pixel</div>
+                <div v-else-if="this.active===1">num</div>
+                <div v-else></div>
+                <br/>
+                <el-button style="margin-top: 12px;" @click="next">Save
+                </el-button>
+              </el-col>
+            </el-row>
+          </div>
         </el-main>
-        <el-footer>
+        <el-footer style="background: #e4e4e4">
           <LFooter/>
         </el-footer>
       </el-container>
@@ -43,7 +48,7 @@
 
 <script>
   import LHeader from './LHeader';
-  import SideBar from './SideBar';
+  import SideBar from './LSide';
   import LFooter from './LFooter';
 
   export default {
@@ -62,7 +67,10 @@
     },
     methods: {
       next() {
-        if (this.active++ > 2) this.active = 0;
+        if (this.state1 !== '') {
+          this.active++;
+        }
+        // if (this.active++ > 2) this.active = 0;
       },
       querySearch(queryString, cb) {
         let restaurants = this.restaurants;

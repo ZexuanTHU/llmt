@@ -21,13 +21,13 @@ function createWindow() {
   });
 
   // This config is for development environment
-  mainWindow.loadURL('http://localhost:8080/#/HomePage');
+  // mainWindow.loadURL('http://localhost:8080/#/HomePage');
   // while this for production environment
-  // mainWindow.loadURL(url.format({
-  //   pathname: path.join(__dirname, 'dist/index.html'),
-  //   protocol: 'file:',
-  //   slashes: true,
-  // }));
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'dist/index.html'),
+    protocol: 'file:',
+    slashes: true,
+  }));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

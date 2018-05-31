@@ -10,7 +10,17 @@
             <LHeader/>
           </el-header>
           <el-main style="background: #e4e4e4;">
-            <codemirror></codemirror>
+            <el-card class="box-card" shadow="hover">
+              <div slot="header" class="clearfix">
+                <span>Auto Calc MT Length</span>
+                <el-button style="float: right; padding: 3px 0" type="text">
+                  Import WorkSpace
+                </el-button>
+              </div>
+              <div v-for="o in 4" :key="o" class="text item">
+                {{'Step ' + o }}
+              </div>
+            </el-card>
           </el-main>
           <el-footer style="background: #e4e4e4;">
             <LFooter/>
@@ -25,27 +35,8 @@
   import LSide from './LSide';
   import LHeader from './LHeader';
   import LFooter from './LFooter';
-  import {codemirror} from 'vue-codemirror-lite';
 
-  require('codemirror/mode/javascript/javascript');
-  require('codemirror/mode/vue/vue');
-
-  require('codemirror/addon/hint/show-hint.js');
-  require('codemirror/addon/hint/show-hint.css');
-  require('codemirror/addon/hint/javascript-hint.js');
   export default {
-    components: {
-      LSide, LHeader, LFooter, codemirror,
-    },
+    components: {LSide, LHeader, LFooter},
   };
 </script>
-
-<style>
-  .CodeMirror-scroll {
-    height: 700px;
-  }
-
-  .CodeMirror.cm-s-default.CodeMirror-wrap {
-    height: 700px;
-  }
-</style>

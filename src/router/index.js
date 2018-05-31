@@ -5,17 +5,13 @@ import HomePage from '@/components/HomePage';
 import SetUp from '@/components/SetUp';
 import SaveLoadMat from '@/components/SaveLoadMat';
 import About from '@/components/About';
+import Script from '@/components/Script';
 
 Vue.use(Router);
 Vue.use(Element);
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'HomePage',
-      component: HomePage,
-    },
     {
       path: '/homepage',
       name: 'HomePage',
@@ -30,6 +26,11 @@ export default new Router({
       path: '/saveloadmat',
       name: 'SaveLoadMat',
       component: SaveLoadMat,
+    },
+    {
+      path: '/script',
+      name: 'Script',
+      component: Script,
     },
     {
       path: '/about',

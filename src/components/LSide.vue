@@ -2,12 +2,12 @@
   <el-row class="tac">
     <el-col :span="12">
       <el-menu
-        collapse="true"
+        :collapse="ifCollapse"
         default-active="2"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        router="true">
+        :router="ifRouter">
         <el-menu-item index="0" route="HomePage">
           <i class="el-icon-llmt-home"></i>
           <span slot="title">LLMT Homepage</span>
@@ -61,6 +61,12 @@
 
 <script>
   export default {
+    data() {
+      return {
+        ifCollapse: true,
+        ifRouter: true,
+      };
+    },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);

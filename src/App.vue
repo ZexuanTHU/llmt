@@ -12,4 +12,7 @@
 </script>
 
 <style>
+  .el-header {
+    padding: 0px;
+  }
 </style>

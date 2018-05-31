@@ -19,7 +19,7 @@ function createWindow() {
   });
 
   // This config is for development environment
-  mainWindow.loadURL('http://localhost:8080');
+  mainWindow.loadURL('http://localhost:8080/#/HomePage');
   // while this for production environment
   // mainWindow.loadURL(url.format({
   //   pathname: path.join(__dirname, 'dist/index.html'),

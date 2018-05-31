@@ -5,7 +5,7 @@
         <LSide/>
       </el-aside>
       <el-container>
-        <el-header style="padding: 0px">
+        <el-header>
           <LHeader/>
         </el-header>
         <el-main style="background-color: #e4e4e4">
@@ -62,7 +62,7 @@
     name: 'HomePage',
     data() {
       return {
-        activeNames: ['1'],
+        activeNames: '',
       };
     },
     components: {

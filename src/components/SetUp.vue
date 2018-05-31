@@ -18,19 +18,39 @@
                   <el-step title="Check Config"></el-step>
                 </el-steps>
                 <div class="sub-title"></div>
-                <el-autocomplete
-                  class="inline-input"
-                  v-model="state1"
-                  :fetch-suggestions="querySearch"
-                  placeholder="请输入内容"
-                  @select="handleSelect"
-                >
-                </el-autocomplete>
-                <div v-if="this.active===0">nm/pixel</div>
-                <div v-else-if="this.active===1">num</div>
-                <div v-else></div>
+                <span>
+                  <el-autocomplete
+                    class="inline-input"
+                    v-model="state"
+                    :fetch-suggestions="querySearch"
+                    placeholder="Please input here"
+                    @select="handleSelect"
+                    v-if="active===0 || active===1"
+                  >
+                  </el-autocomplete>
+                  <el-table
+                    :data="states"
+                    v-else
+                  >
+                    <el-table-column
+                      prop="name"
+                      label="name"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                      prop="value"
+                      label="value"
+                    >
+                    </el-table-column>
+                  </el-table>
+                </span>
+                <span v-if="this.active===0">nm/pixel</span>
+                <span v-else-if="this.active===1">num</span>
+                <span v-else></span>
                 <br/>
-                <el-button style="margin-top: 12px;" @click="next">Save
+                <el-button style="margin-top: 12px;" @click="next">
+                  <span v-if="active!==2">Next</span>
+                  <span v-else>Save</span>
                 </el-button>
               </el-col>
             </el-row>
@@ -61,16 +81,28 @@
     data() {
       return {
         restaurants: [],
-        state1: '',
+        state: '',
         active: 0,
+        states: [
+          {name: 'Scale', value: ''},
+          {name: 'Interval', value: ''},
+        ],
       };
     },
     methods: {
       next() {
-        if (this.state1 !== '') {
+        if (this.active !== 2 && this.state !== '') {
+          console.log(this.state);
+          this.states[this.active].value = this.state;
           this.active++;
+        } else {
+          this.active++;
+          this.$message({
+            showClose: true,
+            message: 'Your configuration already saved!',
+            type: 'success',
+          });
         }
-        // if (this.active++ > 2) this.active = 0;
       },
       querySearch(queryString, cb) {
         let restaurants = this.restaurants;

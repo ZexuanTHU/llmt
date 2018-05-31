@@ -1,7 +1,7 @@
 <template>
   <el-menu mode="horizontal" default-active="activeIndex" menu-trigger="click"
            @select="handleSelect" :router="ifRouter">
-    <el-menu-item index="1">Workspace</el-menu-item>
+    <el-menu-item index="1" route="Workspace">Workspace</el-menu-item>
     <el-menu-item index="2" route="Tasks">Tasks</el-menu-item>
     <el-menu-item index="3" route="Script">Script</el-menu-item>
     <el-menu-item index="4" route="About">About</el-menu-item>

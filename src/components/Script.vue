@@ -6,11 +6,27 @@
           <LSide/>
         </el-aside>
         <el-container>
-          <el-header style="padding: 0px">
+          <el-header style="padding: 0">
             <LHeader/>
           </el-header>
           <el-main style="background: #e4e4e4;">
-            <codemirror></codemirror>
+            <el-select
+              value="selectedOption"
+              v-model="mode"
+              placeholder="Please choose Language Mode">
+              <el-option
+                v-for="item in LangOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled">
+              </el-option>
+            </el-select>
+            <br/>
+            <br/>
+            <div>
+              <codemirror :options=options></codemirror>
+            </div>
           </el-main>
           <el-footer style="background: #e4e4e4;">
             <LFooter/>
@@ -27,13 +43,45 @@
   import LFooter from './LFooter';
   import {codemirror} from 'vue-codemirror-lite';
 
+  require('codemirror/mode/python/python');
   require('codemirror/mode/javascript/javascript');
-  require('codemirror/mode/vue/vue');
+  require('codemirror/mode/octave/octave');
 
   require('codemirror/addon/hint/show-hint.js');
   require('codemirror/addon/hint/show-hint.css');
-  require('codemirror/addon/hint/javascript-hint.js');
+  require('codemirror/addon/hint/javascript-hint');
   export default {
+    data() {
+      return {
+        mode: 'python',
+        LangOptions: [
+          {
+            value: 'python',
+            label: 'Python 3.x',
+          },
+          {
+            value: 'javascript',
+            label: 'Javascript',
+          },
+          {
+            value: 'octave',
+            label: 'Octave (MATLAB)',
+            disabled: true,
+          },
+        ],
+      };
+    },
+    computed: {
+      options: function() {
+        return {
+          mode: this.mode,
+          tabSize: 2,
+          lineNumbers: true,
+          lineWrapping: true,
+          viewportMargin: Infinity,
+        };
+      },
+    },
     components: {
       LSide, LHeader, LFooter, codemirror,
     },

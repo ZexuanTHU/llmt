@@ -48,9 +48,10 @@
                 <span v-else-if="this.active===1">num</span>
                 <span v-else></span>
                 <br/>
-                <el-button style="margin-top: 12px;" @click="next">
-                  <span v-if="active!==2">Next</span>
-                  <span v-else>Save</span>
+                <el-button v-if="active<=2" style="margin-top: 12px;"
+                           @click="next">
+                  <span v-if="active===0 || active===1">Next</span>
+                  <span v-else-if="active===2">Save</span>
                 </el-button>
               </el-col>
             </el-row>

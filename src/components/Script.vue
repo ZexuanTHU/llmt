@@ -22,6 +22,10 @@
                 :disabled="item.disabled">
               </el-option>
             </el-select>
+            <el-button style="margin-left: 10px;" type="primary" plain>Save
+            </el-button>
+            <el-button style="margin-left: 10px;" type="success" plain>Open...
+            </el-button>
             <br/>
             <br/>
             <div>

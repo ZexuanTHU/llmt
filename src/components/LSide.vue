@@ -27,7 +27,7 @@
               <i class="el-icon-document"></i>
               Load/Save .mat
             </el-menu-item>
-            <el-menu-item index="1-3">
+            <el-menu-item index="1-3" route="LoadImages">
               <i class="el-icon-upload2"></i>
               Load Images
             </el-menu-item>

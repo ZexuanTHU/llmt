@@ -17,6 +17,7 @@
                   <el-step title="Interval"></el-step>
                   <el-step title="Check Config"></el-step>
                 </el-steps>
+                <br/>
                 <div class="sub-title"></div>
                 <span>
                   <el-autocomplete
@@ -48,7 +49,8 @@
                 <span v-else-if="this.active===1">num</span>
                 <span v-else></span>
                 <br/>
-                <el-button v-if="active<=2" style="margin-top: 12px;"
+                <el-button v-if="active<=2"
+                           style="margin-top: 12px;"
                            @click="next">
                   <span v-if="active===0 || active===1">Next</span>
                   <span v-else-if="active===2">Save</span>
@@ -92,10 +94,18 @@
     },
     methods: {
       next() {
-        if (this.active !== 2 && this.state !== '') {
-          console.log(this.state);
-          this.states[this.active].value = this.state;
-          this.active++;
+        if (this.active <= 1) {
+          if (this.state === '') {
+            this.$message({
+              showCLose: true,
+              message: 'You cannot skip this step',
+              type: 'error',
+            });
+          } else {
+            console.log(this.state, this.active);
+            this.states[this.active].value = this.state;
+            this.active++;
+          }
         } else {
           this.active++;
           this.$message({

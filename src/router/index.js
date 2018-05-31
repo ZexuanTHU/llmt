@@ -8,6 +8,7 @@ import Workspace from '@/components/Workspace';
 import Tasks from '@/components/Tasks';
 import About from '@/components/About';
 import Script from '@/components/Script';
+import LoadImages from '@/components/LoadImages';
 
 Vue.use(Router);
 Vue.use(Element);
@@ -33,6 +34,11 @@ export default new Router({
       path: '/saveloadmat',
       name: 'SaveLoadMat',
       component: SaveLoadMat,
+    },
+    {
+      path: '/loadimages',
+      name: 'LoadImages',
+      component: LoadImages,
     },
     {
       path: '/tasks',

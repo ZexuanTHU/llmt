@@ -18,14 +18,18 @@
               :on-remove="handleRemove"
               :file-list="fileList"
               :auto-upload="false">
-              <el-button slot="trigger" size="small" type="primary">Select...
+              <el-button slot="trigger" style="width: 80px;" size="small">
+                Select...
               </el-button>
-              <el-button style="margin-left: 10px;" size="small" type="success"
+              <el-button style="margin-left: 10px; width: 80px;" size="small"
+                         type="primary">Save
+              </el-button>
+              <el-button style="margin-left: 10px; width: 80px;" size="small"
+                         type="success"
                          @click="submitUpload">Upload
               </el-button>
-              <div slot="tip" class="el-upload__tip">Allow .mat file within
-                500kb
-                size
+              <div slot="tip" class="el-upload__tip">
+                Allow .mat file within 500kb size
               </div>
             </el-upload>
           </div>
@@ -53,10 +57,10 @@
     data() {
       return {
         fileList: [{
-          name: 'food.jpeg',
+          name: 'pic1.mat',
           url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
         }, {
-          name: 'food2.jpeg',
+          name: 'pic2.mat',
           url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
         }],
       };

@@ -1,0 +1,10 @@
+*~
+*.bak
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.avi
+test/
+data/
+

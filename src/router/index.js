@@ -9,6 +9,7 @@ import Tasks from '@/components/Tasks';
 import About from '@/components/About';
 import Script from '@/components/Script';
 import LoadImages from '@/components/LoadImages';
+import CalcTForm from '@/components/CalcTForm';
 
 Vue.use(Router);
 Vue.use(Element);
@@ -44,6 +45,11 @@ export default new Router({
       path: '/loadimages',
       name: 'LoadImages',
       component: LoadImages,
+    },
+    {
+      path: '/calctform',
+      name: 'CalcTForm',
+      component: CalcTForm,
     },
     {
       path: '/tasks',

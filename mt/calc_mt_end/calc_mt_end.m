@@ -1,0 +1,206 @@
+function calc_mt_end
+%% CALC_MT_END_V2 determines the MT end center by fitting an gaussian
+% model
+
+% Overall procedure:
+% 1. location of MT, e.g., the line representing MT
+% 2. coarse estimation by local properties, such as intensities and
+%    curvatures
+% 3. fine estimation by fitting 2d model
+
+% Note:
+% 1. Kymograph is not deeded
+
+    
+%% parameters
+    global gb_params; % kymograph_n, mt_sigma
+
+    %% Input: gb_mt_imgs, gb_mt_lines
+    global gb_mt_imgs gb_mt_lines;
+    % calculated from mt_img_preprocessing
+    global gb_is_preprocessed;
+    global gb_Lmax gb_Lmin gb_normed_mt_imgs;
+    global gb_blurred_mt_imgs gb_LmaxF gb_LminF;
+    global gb_blurF gb_theta;
+    global gb_skel gb_skel_lines;
+
+    %% Variables:
+    [img_h, img_w, num_frames] = size(gb_mt_imgs);
+    num_mt_lines = numel(gb_mt_lines);
+    if(num_mt_lines==0)
+        return;
+    end
+
+    %% Output: gb_mt_end_params, gb_Lmax, gb_Lmin, gb_LmaxF,
+    %% gb_LminF
+    % parameters of the fitting procedure
+    global gb_mt_plus_params; % growing end
+    global gb_mt_minus_params; % fixed end
+
+    % preprocessing
+    if gb_is_preprocessed==0
+        init_mt_end_params; % helper functions 1
+        mt_img_preprocess;
+    end
+    
+    %% find MT ends
+    find_mt_ends; % helper function 3
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    %% Nested helper functions
+    function init_mt_end_params % helper 1
+    % initiation of the return variables
+        gb_mt_plus_params = struct('center', {}, ... % x+yi
+                                   'sigma', {}, ... % half width
+                                   'direction', {}, ... % rad
+                                   'amplitude', {}, ... % a.u.
+                                   'baseline', {}, ... % a.u.
+                                   'residue', {}, ... % residual
+                                   'exitflag', {} ...% exitflag of fitting
+                                   );
+        gb_mt_minus_params = struct('center', {}, ... % x+yi
+                                    'sigma', {}, ... % half width
+                                    'direction', {}, ... % rad
+                                    'amplitude', {}, ... % a.u.
+                                    'baseline', {}, ... % a.u.
+                                    'residue', {}, ... % residual
+                                    'exitflag', {} ... % exitflag of fitting
+                                    );
+        %% init gb_mt_plus_params
+        for jj = 1:num_mt_lines
+            gb_mt_plus_params(jj).center = complex(nan(num_frames, 1));
+            gb_mt_plus_params(jj).sigma = nan(num_frames, 1);
+            gb_mt_plus_params(jj).direction = nan(num_frames, 1);
+            gb_mt_plus_params(jj).amplitude = nan(num_frames, 1);
+            gb_mt_plus_params(jj).baseline = nan(num_frames, 1);
+            gb_mt_plus_params(jj).residue = nan(num_frames, 1);
+            gb_mt_plus_params(jj).exitflag = nan(num_frames, 1);
+        end
+        gb_mt_minus_params = gb_mt_plus_params;
+    end
+    
+    function find_mt_ends % helper 3
+    % For each drawed line, find the start and end point
+    % 1st loop, mt lines
+        for jj = 1:numel(gb_mt_lines)
+            % border information
+            ps = gb_mt_lines(jj).line(1); % start 
+            pe = gb_mt_lines(jj).line(2); % end
+            theta0 = angle(pe-ps); % angle
+            [pp1, pp2] = extract_roi_from_2p(ps, ...
+                                             pe, ...
+                                             gb_params.border_px);
+            x1 = real(pp1);
+            x2 = real(pp2);
+            y1 = imag(pp1);
+            y2 = imag(pp2);
+
+            % 2nd loop, each frame
+            for kk = 1:num_frames
+                current_img = gb_mt_imgs(:,:,kk);
+                % candidate lines (cl)
+                cl = gb_skel_lines{kk};
+                inds = ((cl(:,1)>=x1) & ...
+                        (cl(:,1)<=x2) & ...
+                        (cl(:,2)>=y1) & ...
+                        (cl(:,2)<=y2) & ...
+                        (abs(cl(:,3)-theta0)<(pi/18)) ...
+                        );
+                if numel(inds)==0
+                    continue;
+                end
+                cl = cl(inds,:);
+                % candidate ends (ce)
+                tmp_p0 = cl(:,1) + sqrt(-1)*cl(:,2);
+                tmp_v = 0.5 * cl(:,4).* ...
+                    ( cos(cl(:,3)) + ...
+                      sqrt(-1)*sin(cl(:,3)) );
+                ce = [tmp_p0+tmp_v;tmp_p0-tmp_v];
+                ce2ps = ce-ps;
+                thetas = angle(ce2ps);
+                % distance to MT line
+                ce_to_line = abs(abs(ce2ps).*sin(thetas-theta0));
+                % projection on MT line
+                ce_on_line = abs(ce2ps).*cos(thetas-theta0);
+                % remove the points that are too far away
+                inds = (ce_to_line<gb_params.thres_dist);
+                ce = ce(inds);
+                ce2ps = ce2ps(inds);
+                ce_to_line = ce_to_line(inds);
+                ce_on_line = ce_on_line(inds);
+                if numel(ce)==0
+                    continue;
+                end
+                % classify the candidates into plus end candidates and
+                % minus end candidates based on the projection
+                inds = ce_on_line<mean(ce_on_line); % indices for minus
+                                                    % end
+                cm = ce(inds); % minus end candidates
+                cp = ce(~inds); % plus end candidates
+                                % x0, y0 , sigma, direction,
+                                % amplitude, baseline
+                                % residue, exitflag, 8 columns
+                minus_ends = nan(numel(cm),8);
+                plus_ends = nan(numel(cp),8);
+                % plus end fitting
+                for mm = 1:numel(cp)
+                    [tmp1,tmp2,tmp3] = ...
+                        fit_one_mt_end(current_img, ...
+                                       gb_params.fit_cropped_r, ...
+                                       cp(mm), ...
+                                       theta0);
+                    plus_ends(mm,1:6) = tmp1;
+                    plus_ends(mm,7) = tmp2;
+                    plus_ends(mm,8) = tmp3;
+                end
+                % minus end fitting
+                for mm = 1:numel(cm)
+                    [tmp1,tmp2,tmp3] = ...
+                        fit_one_mt_end(current_img, ...
+                                       gb_params.fit_cropped_r, ...
+                                       cm(mm), ...
+                                       (theta0+pi-2*pi*floor(0.5*theta0/pi+1)));
+                    minus_ends(mm,1:6) = tmp1;
+                    minus_ends(mm,7) = tmp2;
+                    minus_ends(mm,8) = tmp3;
+                end
+                [min_plus ind_plus] = min(plus_ends(:,7));
+                [min_minus ind_minus] = min(minus_ends(:,7));
+                if numel(ind_plus)==1
+                    gb_mt_plus_params(jj).center(kk) = plus_ends(ind_plus,1) ...
+                        + sqrt(-1)*plus_ends(ind_plus,2);
+                    gb_mt_plus_params(jj).sigma(kk) = ...
+                        plus_ends(ind_plus,3);
+                    gb_mt_plus_params(jj).direction(kk) = ...
+                        plus_ends(ind_plus,4);
+                    gb_mt_plus_params(jj).amplitude(kk) = ...
+                        plus_ends(ind_plus,5);
+                    gb_mt_plus_params(jj).baseline(kk) = ...
+                        plus_ends(ind_plus,6);
+                    gb_mt_plus_params(jj).residue(kk) = ...
+                        plus_ends(ind_plus,7);
+                    gb_mt_plus_params(jj).exitflag(kk) = ...
+                        plus_ends(ind_plus,8);
+                end
+                if numel(ind_minus)==1
+                    gb_mt_minus_params(jj).center(kk) = minus_ends(ind_minus,1) ...
+                        + sqrt(-1)*minus_ends(ind_minus,2);
+                    gb_mt_minus_params(jj).sigma(kk) = ...
+                        minus_ends(ind_minus,3);
+                    gb_mt_minus_params(jj).direction(kk) = ...
+                        minus_ends(ind_minus,4);
+                    gb_mt_minus_params(jj).amplitude(kk) = ...
+                        minus_ends(ind_minus,5);
+                    gb_mt_minus_params(jj).baseline(kk) = ...
+                        minus_ends(ind_minus,6);
+                    gb_mt_minus_params(jj).residue(kk) = ...
+                        minus_ends(ind_minus,7);
+                    gb_mt_minus_params(jj).exitflag(kk) = ...
+                        minus_ends(ind_minus,8);
+                end
+            end
+        end
+    end % find_mt_end_2
+    
+end

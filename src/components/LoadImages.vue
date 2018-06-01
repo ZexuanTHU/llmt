@@ -20,11 +20,14 @@
             <el-upload
               class="upload-demo"
               drag
+              :before-upload="beforeUpload"
               action="https://jsonplaceholder.typicode.com/posts/"
               multiple>
               <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb
+              <div class="el-upload__text">Drag MT file here，or<em> Click here
+                to upload</em></div>
+              <div class="el-upload__tip" slot="tip">Please load MT file within
+                500kb size
               </div>
             </el-upload>
           </div>

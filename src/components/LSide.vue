@@ -33,7 +33,7 @@
             </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="MT Toolkit">
-            <el-menu-item index="1-3">Calc TForm</el-menu-item>
+            <el-menu-item index="1-3" route="CalcTForm">CalcTForm</el-menu-item>
           </el-menu-item-group>
           <el-submenu index="1-4">
             <template slot="title">Red Value</template>

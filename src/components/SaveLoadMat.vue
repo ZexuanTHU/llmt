@@ -68,6 +68,19 @@
     methods: {
       submitUpload() {
         this.$refs.upload.submit();
+        let that = this;
+        setTimeout(function() {
+          that.$notify({
+            title: 'New MATLAB workspace loaded',
+            message: 'You can check it in the Workspace',
+            duration: 0,
+          });
+        }, 3000);
+        this.$message({
+          showClose: true,
+          message: 'Load success',
+          type: 'success',
+        });
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

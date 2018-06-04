@@ -12,10 +12,15 @@
           <div style="background: white; padding: 10px;">
             <el-row class="demo-autocomplete">
               <el-col :span="12">
+                <span>
+                  <el-tag>Global Parameters Settings</el-tag>
+                  <br/>
+                  <br/>
+                </span>
                 <el-steps :active="active" finish-status="success">
-                  <el-step title="Scale"></el-step>
-                  <el-step title="Interval"></el-step>
-                  <el-step title="Check Config"></el-step>
+                  <el-step title="Set Scale"></el-step>
+                  <el-step title="Set Time Interval"></el-step>
+                  <el-step title="Check Configuration"></el-step>
                 </el-steps>
                 <br/>
                 <div class="sub-title"></div>
@@ -30,9 +35,13 @@
                   >
                   </el-autocomplete>
                   <template v-else>
-                  <el-table
-                    :data="states"
-                  >
+                    <span v-if="active===2">
+                      <el-tag>Please check your configuration before saving
+                      </el-tag>
+                    </span>
+                    <el-table
+                      :data="states"
+                    >
                     <el-table-column
                       prop="name"
                       label="name"
@@ -47,7 +56,7 @@
                   </template>
                 </span>
                 <span v-if="this.active===0">nm/pixel</span>
-                <span v-else-if="this.active===1">num</span>
+                <span v-else-if="this.active===1">s</span>
                 <span v-else></span>
                 <br/>
                 <el-button v-if="active<=3"
@@ -62,8 +71,7 @@
           </div>
           <br/>
           <div style="background: white; padding: 10px;">
-            <p>Please setup microscope parameters here</p>
-            <p>Current parameters:</p>
+            <el-tag>Current parameters:</el-tag>
             <el-table
               :data="states"
             >
@@ -75,6 +83,11 @@
               <el-table-column
                 prop="value"
                 label="value"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="units"
+                label="units"
               >
               </el-table-column>
             </el-table>
@@ -108,8 +121,8 @@
         state: '',
         active: 0,
         states: [
-          {name: 'Scale', value: '1'},
-          {name: 'Interval', value: '1'},
+          {name: 'Scale', value: '1', units: 'nm/pixel'},
+          {name: 'Time Interval', value: '1', units: 's'},
         ],
       };
     },

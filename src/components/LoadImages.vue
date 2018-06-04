@@ -10,6 +10,31 @@
         </el-header>
         <el-main style="background-color: #e4e4e4">
           <div style="background: white; padding: 10px;">
+            <el-upload
+              class="upload-demo"
+              ref="upload"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :file-list="fileList"
+              :auto-upload="false">
+              <el-button slot="trigger" style="width: 80px;" size="small">
+                Select...
+              </el-button>
+              <el-button style="margin-left: 10px; width: 80px;" size="small"
+                         type="primary">Save
+              </el-button>
+              <el-button style="margin-left: 10px; width: 80px;" size="small"
+                         type="success"
+                         @click="submitUpload">Load
+              </el-button>
+              <div slot="tip" class="el-upload__tip">
+                Allow .mat file within 500kb size
+              </div>
+            </el-upload>
+          </div>
+          <br/>
+          <div style="background: white; padding: 10px;">
             <p style="text-align: center; margin: 0 0 20px">Load MT var from
               base workspace</p>
             <div style="text-align: center">

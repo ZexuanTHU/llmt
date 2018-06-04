@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "element-ui": "^2.3.9",
+    "koa": "^2.5.1",
     "vue": "^2.5.2",
     "vue-codemirror-lite": "^1.0.4",
     "vue-router": "^3.0.1"

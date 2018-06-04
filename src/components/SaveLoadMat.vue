@@ -26,7 +26,7 @@
               </el-button>
               <el-button style="margin-left: 10px; width: 80px;" size="small"
                          type="success"
-                         @click="submitUpload">Upload
+                         @click="submitUpload">Load
               </el-button>
               <div slot="tip" class="el-upload__tip">
                 Allow .mat file within 500kb size

@@ -29,9 +29,9 @@
                     v-if="active===0 || active===1"
                   >
                   </el-autocomplete>
+                  <template v-else>
                   <el-table
                     :data="states"
-                    v-else
                   >
                     <el-table-column
                       prop="name"
@@ -44,19 +44,40 @@
                     >
                     </el-table-column>
                   </el-table>
+                  </template>
                 </span>
                 <span v-if="this.active===0">nm/pixel</span>
                 <span v-else-if="this.active===1">num</span>
                 <span v-else></span>
                 <br/>
-                <el-button v-if="active<=2"
+                <el-button v-if="active<=3"
                            style="margin-top: 12px;"
                            @click="next">
                   <span v-if="active===0 || active===1">Next</span>
                   <span v-else-if="active===2">Save</span>
+                  <span v-else-if="active===3">Reset</span>
                 </el-button>
               </el-col>
             </el-row>
+          </div>
+          <br/>
+          <div style="background: white; padding: 10px;">
+            <p>Please setup microscope parameters here</p>
+            <p>Current parameters:</p>
+            <el-table
+              :data="states"
+            >
+              <el-table-column
+                prop="name"
+                label="name"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="value"
+                label="value"
+              >
+              </el-table-column>
+            </el-table>
           </div>
         </el-main>
         <el-footer style="background: #e4e4e4">
@@ -87,8 +108,8 @@
         state: '',
         active: 0,
         states: [
-          {name: 'Scale', value: ''},
-          {name: 'Interval', value: ''},
+          {name: 'Scale', value: '1'},
+          {name: 'Interval', value: '1'},
         ],
       };
     },
@@ -106,12 +127,18 @@
             this.states[this.active].value = this.state;
             this.active++;
           }
-        } else {
+        } else if (this.active === 2) {
           this.active++;
           this.$message({
             showClose: true,
             message: 'Your configuration already saved!',
             type: 'success',
+          });
+        } else {
+          this.active = 0;
+          this.$message({
+            showClose: true,
+            message: 'Please reset your configuration!',
           });
         }
       },

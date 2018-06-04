@@ -10,26 +10,32 @@
         </el-header>
         <el-main style="background-color: #e4e4e4">
           <div style="background: white; padding: 10px;">
-            <el-steps :active="active" finish-status="success">
-              <el-step title="Load MT File"></el-step>
-              <el-step title="Load MAP File"></el-step>
-              <el-step title="Set MT Var"></el-step>
-              <el-step title="Set MAP Var"></el-step>
-            </el-steps>
-            <br/>
-            <el-upload
-              class="upload-demo"
-              drag
-              :before-upload="beforeUpload"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              multiple>
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">Drag MT file here，or<em> Click here
-                to upload</em></div>
-              <div class="el-upload__tip" slot="tip">Please load MT file within
-                500kb size
-              </div>
-            </el-upload>
+            <p style="text-align: center; margin: 0 0 20px">Load MT var from
+              base workspace</p>
+            <div style="text-align: center">
+              <el-transfer
+                style="text-align: left; display: inline-block"
+                v-model="value3"
+                filterable
+                filter-placeholder="Search var name here"
+                :left-default-checked="[2, 3]"
+                :right-default-checked="[1]"
+                :render-content="renderFunc"
+                :titles="['Source', 'Target']"
+                :button-texts="['Undo', 'Load']"
+                :format="{
+                noChecked:'${total}',
+                hasChecked:'${checked}/${total}'}"
+                @change="handleChange"
+                :data="data">
+                <el-button class="transfer-footer" slot="left-footer"
+                           size="small">Clear
+                </el-button>
+                <el-button class="transfer-footer" slot="right-footer"
+                           size="small">Load
+                </el-button>
+              </el-transfer>
+            </div>
           </div>
         </el-main>
         <el-footer style="background: #e4e4e4">
@@ -47,14 +53,42 @@
 
 
   export default {
-    data() {
-      return {};
-    },
     components: {
-      LSide,
       LHeader,
+      LSide,
       LFooter,
     },
-    methods: {},
+    data() {
+      const generateData = (_) => {
+        const data = [];
+        for (let i = 1; i <= 15; i++) {
+          data.push({
+            key: i,
+            label: `MT_Var ${ i }`,
+          });
+        }
+        return data;
+      };
+      return {
+        data: generateData(),
+        value3: [1],
+        value4: [1],
+        renderFunc(h, option) {
+          return <span>{ option.key } - { option.label }</span>;
+        },
+      };
+    },
+    methods: {
+      handleChange(value, direction, movedKeys) {
+        console.log(value, direction, movedKeys);
+      },
+    },
   };
 </script>
+
+<style>
+  .transfer-footer {
+    margin-left: 20px;
+    padding: 6px 5px;
+  }
+</style>

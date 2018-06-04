@@ -12,11 +12,7 @@
           <div style="background: white; padding: 10px;">
             <el-row class="demo-autocomplete">
               <el-col :span="12">
-                <span>
-                  <el-tag>Global Parameters Settings</el-tag>
-                  <br/>
-                  <br/>
-                </span>
+                <BlockTag tag-name="Global Parameters Settings"></BlockTag>
                 <el-steps :active="active" finish-status="success">
                   <el-step title="Set Scale"></el-step>
                   <el-step title="Set Time Interval"></el-step>
@@ -71,7 +67,7 @@
           </div>
           <br/>
           <div style="background: white; padding: 10px;">
-            <el-tag>Current parameters:</el-tag>
+            <block-tag tag-name="Current Parameters"></block-tag>
             <el-table
               :data="states"
             >
@@ -107,6 +103,7 @@
   import LHeader from './LHeader';
   import SideBar from './LSide';
   import LFooter from './LFooter';
+  import BlockTag from './basic/BlockTag';
 
   export default {
     name: 'SetUp',
@@ -114,6 +111,7 @@
       'SideBar': SideBar,
       'LHeader': LHeader,
       'LFooter': LFooter,
+      'BlockTag': BlockTag,
     },
     data() {
       return {

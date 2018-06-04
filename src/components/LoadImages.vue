@@ -10,6 +10,7 @@
         </el-header>
         <el-main style="background-color: #e4e4e4">
           <div style="background: white; padding: 10px;">
+            <block-tag tag-name="Load MT / MAP Files"></block-tag>
             <el-upload
               class="upload-demo"
               ref="upload"
@@ -22,9 +23,6 @@
                 Select...
               </el-button>
               <el-button style="margin-left: 10px; width: 80px;" size="small"
-                         type="primary">Save
-              </el-button>
-              <el-button style="margin-left: 10px; width: 80px;" size="small"
                          type="success"
                          @click="submitUpload">Load
               </el-button>
@@ -35,9 +33,8 @@
           </div>
           <br/>
           <div style="background: white; padding: 10px;">
-            <p style="text-align: center; margin: 0 0 20px">Load MT var from
-              base workspace</p>
-            <div style="text-align: center">
+            <block-tag tag-name="Load MT / MAP Var from Workspace"></block-tag>
+            <div>
               <el-transfer
                 style="text-align: left; display: inline-block"
                 v-model="value3"
@@ -75,6 +72,7 @@
   import LHeader from './LHeader';
   import LSide from './LSide';
   import LFooter from './LFooter';
+  import BlockTag from './basic/BlockTag';
 
 
   export default {
@@ -82,6 +80,7 @@
       LHeader,
       LSide,
       LFooter,
+      BlockTag,
     },
     data() {
       const generateData = (_) => {

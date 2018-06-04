@@ -10,6 +10,7 @@
         </el-header>
         <el-main>
           <div style="background: white; padding: 10px;">
+            <block-tag tag-name="Load Workspace (.mat)"></block-tag>
             <el-upload
               class="upload-demo"
               ref="upload"
@@ -22,9 +23,6 @@
                 Select...
               </el-button>
               <el-button style="margin-left: 10px; width: 80px;" size="small"
-                         type="primary">Save
-              </el-button>
-              <el-button style="margin-left: 10px; width: 80px;" size="small"
                          type="success"
                          @click="submitUpload">Load
               </el-button>
@@ -32,6 +30,11 @@
                 Allow .mat file within 500kb size
               </div>
             </el-upload>
+          </div>
+          <br/>
+          <div style="background: white; padding: 10px;">
+            <block-tag tag-name="Current Workspace"></block-tag>
+            <WorkspaceTable></WorkspaceTable>
           </div>
         </el-main>
         <el-footer>
@@ -46,13 +49,17 @@
   import LHeader from './LHeader';
   import SideBar from './LSide';
   import LFooter from './LFooter';
+  import WorkspaceTable from './basic/WorkspaceTable';
+  import BlockTag from './basic/BlockTag';
 
   export default {
     name: 'SaveLoadMat',
     components: {
-      'SideBar': SideBar,
-      'LHeader': LHeader,
-      'LFooter': LFooter,
+      SideBar,
+      LHeader,
+      LFooter,
+      WorkspaceTable,
+      BlockTag,
     },
     data() {
       return {

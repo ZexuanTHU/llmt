@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container style="height: 800px;">
+    <el-container style="height: 1000px;">
       <el-aside width="65px" style="background: white">
         <LSide/>
       </el-aside>

@@ -4,7 +4,7 @@
       <el-aside width="65px">
         <SideBar/>
       </el-aside>
-      <el-container style="height: 800px; background-color: #e4e4e4">
+      <el-container style="height: 1000px; background-color: #e4e4e4">
         <el-header style="padding: 0px">
           <LHeader/>
         </el-header>

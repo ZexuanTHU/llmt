@@ -46,9 +46,9 @@
 </template>
 
 <script>
-  import LHeader from './LHeader';
-  import SideBar from './LSide';
-  import LFooter from './LFooter';
+  import LHeader from './basic/LHeader';
+  import SideBar from './basic/LSide';
+  import LFooter from './basic/LFooter';
   import WorkspaceTable from './basic/WorkspaceTable';
   import BlockTag from './basic/BlockTag';
 

@@ -100,9 +100,9 @@
 </template>
 
 <script>
-  import LHeader from './LHeader';
-  import SideBar from './LSide';
-  import LFooter from './LFooter';
+  import LHeader from './basic/LHeader';
+  import SideBar from './basic/LSide';
+  import LFooter from './basic/LFooter';
   import BlockTag from './basic/BlockTag';
 
   export default {

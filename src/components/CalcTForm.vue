@@ -9,15 +9,18 @@
           <LHeader/>
         </el-header>
         <el-main style="background-color: #e4e4e4">
-          <div style="padding:0 10px 0 10px; background: white;">
+          <div style="background: white; padding: 10px;">
+            <block-tag tag-name="Load Bead Files"></block-tag>
             <el-upload
               class="upload-demo"
-              drag
               action="https://jsonplaceholder.typicode.com/posts/"
-              multiple>
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :file-list="fileList2"
+              list-type="picture">
+              <el-button size="small" type="primary">Select...</el-button>
+              <div slot="tip" class="el-upload__tip">
+                Allow .tif image up to 20 MB
               </div>
             </el-upload>
           </div>
@@ -31,9 +34,10 @@
 </template>
 
 <script>
-  import LHeader from './LHeader';
-  import LSide from './LSide';
-  import LFooter from './LFooter';
+  import LHeader from './basic/LHeader';
+  import LSide from './basic/LSide';
+  import LFooter from './basic/LFooter';
+  import BlockTag from './basic/BlockTag';
 
   export default {
     name: 'HomePage',
@@ -41,6 +45,7 @@
       return {};
     },
     components: {
+      BlockTag,
       LSide,
       LHeader,
       LFooter,

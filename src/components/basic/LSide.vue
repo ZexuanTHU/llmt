@@ -2,7 +2,6 @@
   <el-row class="tac">
     <el-col :span="12">
       <el-menu
-        style="border-top: 1px solid #E0E3E6;"
         :collapse="ifCollapse"
         default-active="2"
         class="el-menu-vertical-demo"
@@ -33,28 +32,31 @@
               Load Images
             </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="MT Toolkit">
-            <el-menu-item index="1-3" route="CalcTForm">CalcTForm</el-menu-item>
+          <el-menu-item-group>
+            <template slot="title">MT Toolkit</template>
+            <el-submenu index="1-4">
+              <template slot="title">Correction</template>
+              <el-menu-item index="1-4-1" route="CalcTForm">CalcTForm
+              </el-menu-item>
+              <el-menu-item index="1-4-2">Correct Red</el-menu-item>
+              <el-menu-item index="1-4-3">Inv Corr Red</el-menu-item>
+              <el-menu-item index="1-4-4">Correct Drift</el-menu-item>
+            </el-submenu>
+            <el-submenu index="1-5">
+              <template slot="title">MT Operations</template>
+              <el-menu-item index="1-5-1" route="AddMTLine">Add MT Line
+              </el-menu-item>
+              <el-menu-item index="1-5-2">Calc MT End</el-menu-item>
+              <el-menu-item index="1-5-3" route="AddKymograph">Add Kymorgraph
+              </el-menu-item>
+            </el-submenu>
+            <el-submenu index="1-6">
+              <template slot="title">Analysis</template>
+              <el-menu-item index="1-6-1">Analysis</el-menu-item>
+              <el-menu-item index="1-6-2">Other Analysis</el-menu-item>
+            </el-submenu>
           </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">Red Value</template>
-            <el-menu-item index="1-4-1">Correct Red</el-menu-item>
-            <el-menu-item index="1-4-2">Inv Corr Red</el-menu-item>
-          </el-submenu>
-          <el-menu-item index="1-5">Correct Drift</el-menu-item>
-          <el-menu-item index="1-6">Add MT Line</el-menu-item>
-          <el-menu-item index="1-7">Calc MT End</el-menu-item>
-          <el-menu-item index="1-8">Add Kymorgraph</el-menu-item>
-          <el-submenu index="1-9">
-            <template slot="title">Analysis</template>
-            <el-menu-item index="1-9-1">Analysis</el-menu-item>
-            <el-menu-item index="1-9-2">Other Analysis</el-menu-item>
-          </el-submenu>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
       </el-menu>
     </el-col>
   </el-row>
@@ -80,5 +82,5 @@
 </script>
 
 <style>
-  @import "../assets/icon/iconfont.css";
+  @import "../../assets/icon/iconfont.css";
 </style>

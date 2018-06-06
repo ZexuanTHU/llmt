@@ -10,6 +10,8 @@ import About from '@/components/About';
 import Script from '@/components/Script';
 import LoadImages from '@/components/LoadImages';
 import CalcTForm from '@/components/CalcTForm';
+import AddMTLine from '@/components/AddMTLine';
+import AddKymograph from '@/components/AddKymograph';
 
 Vue.use(Router);
 Vue.use(Element);
@@ -65,6 +67,16 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About,
+    },
+    {
+      path: '/addmtline',
+      name: 'AddMTLine',
+      component: AddMTLine,
+    },
+    {
+      path: '/addkymograph',
+      name: 'AddKymograph',
+      component: AddKymograph,
     },
   ],
 });

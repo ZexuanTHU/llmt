@@ -13,6 +13,6 @@
 
 <style>
   .el-header {
-    padding: 0px;
+    padding: 0;
   }
 </style>

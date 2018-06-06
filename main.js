@@ -17,7 +17,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    titleBarStyle: "hidden"
+    titleBarStyle: "hidden",
   });
 
   // This config is for development environment

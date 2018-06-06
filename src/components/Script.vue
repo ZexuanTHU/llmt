@@ -42,9 +42,9 @@
 </template>
 
 <script>
-  import LSide from './LSide';
-  import LHeader from './LHeader';
-  import LFooter from './LFooter';
+  import LSide from './basic/LSide';
+  import LHeader from './basic/LHeader';
+  import LFooter from './basic/LFooter';
   import {codemirror} from 'vue-codemirror-lite';
 
   require('codemirror/mode/python/python');

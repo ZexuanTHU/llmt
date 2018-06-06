@@ -23,7 +23,7 @@
                 <span>
                   <el-autocomplete
                     class="inline-input"
-                    v-model="state"
+                    v-model="inputValue"
                     :fetch-suggestions="querySearch"
                     placeholder="Please input here"
                     @select="handleSelect"
@@ -115,8 +115,7 @@
     },
     data() {
       return {
-        restaurants: [],
-        state: '',
+        inputValue: '',
         active: 0,
         states: [
           {name: 'Scale', value: '1', units: 'nm/pixel'},
@@ -127,15 +126,15 @@
     methods: {
       next() {
         if (this.active <= 1) {
-          if (this.state === '') {
+          if (this.inputValue === '') {
             this.$message({
               showCLose: true,
               message: 'You cannot skip this step',
               type: 'error',
             });
           } else {
-            console.log(this.state, this.active);
-            this.states[this.active].value = this.state;
+            console.log(this.inputValue, this.active);
+            this.states[this.active].value = this.inputValue;
             this.active++;
           }
         } else if (this.active === 2) {
@@ -154,9 +153,9 @@
         }
       },
       querySearch(queryString, cb) {
-        let restaurants = this.restaurants;
+        let states = this.states;
         let results = queryString ?
-          restaurants.filter(this.createFilter(queryString)) : restaurants;
+          states.filter(this.createFilter(queryString)) : states;
         // 调用 callback 返回建议列表的数据
         cb(results);
       },
@@ -168,8 +167,8 @@
       },
       loadAll() {
         return [
-          {'value': '100', 'address': ''},
-          {'value': '200', 'address': ''},
+          {name: 'Scale', value: '1', units: 'nm/pixel'},
+          {name: 'Time Interval', value: '3', units: 's'},
         ];
       },
       handleSelect(item) {
@@ -177,7 +176,7 @@
       },
     },
     mounted() {
-      this.restaurants = this.loadAll();
+      this.states = this.loadAll();
     },
   };
 </script>

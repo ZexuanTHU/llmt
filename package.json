@@ -13,14 +13,31 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "estart": "electron ."
+    "estart": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "lianglab.sls.tsinghua",
+    "mac": {
+      "category": "science",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
   },
   "dependencies": {
     "element-ui": "^2.3.9",
     "koa": "^2.5.1",
     "vue": "^2.5.2",
     "vue-codemirror-lite": "^1.0.4",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -44,6 +61,7 @@
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
     "electron": "^2.0.2",
+    "electron-builder": "^20.15.1",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
     "eslint-config-standard": "^10.2.1",

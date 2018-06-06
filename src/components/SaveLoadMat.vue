@@ -81,8 +81,9 @@
             title: 'New MATLAB workspace loaded',
             message: 'You can check it in the Workspace',
             duration: 0,
+            offset: 25,
           });
-        }, 3000);
+        }, 2000);
         this.$message({
           showClose: true,
           message: 'Load success',

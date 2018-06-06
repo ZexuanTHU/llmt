@@ -36,41 +36,14 @@
                   <div slot="header" class="clearfix">
                     <span>Actions</span>
                     <el-tooltip content="Done">
-                      <el-button style="float: right; padding: 5px;" circle
-                                 icon="el-icon-check" type="success">
-                      </el-button>
+                    <el-button style="float: right; padding: 5px;" circle
+                               icon="el-icon-check" type="success">
+                    </el-button>
                     </el-tooltip>
                   </div>
-                  <div>
-                    <div class="block">
-                      <span class="demonstration">Brightness</span>
-                      <el-slider v-model="brightnessValue"
-                      ></el-slider>
-                    </div>
-                    <br/>
-                    <div class="block">
-                      <span class="demonstration">Contrast</span>
-                      <el-slider v-model="contrastValue"></el-slider>
-                    </div>
-                  </div>
-                  <div class="block">
-                    <span class="demonstration">Select Kymo</span>
-                    <el-input-number v-model="kymoNum" @change="handleChange"
-                                     :min="1" :max="10"
-                                     label="描述文字"></el-input-number>
-                  </div>
-                  <br/>
-                  <el-button-group>
-                    <el-button type="primary" icon="el-icon-plus">
-                      Add Line
-                    </el-button>
-                    <el-button type="primary" icon="el-icon-edit">Draw Line
-                    </el-button>
-                  </el-button-group>
-                  <!--<el-button type="success"-->
-                  <!--plain style="margin-top: 10px">-->
-                  <!--Done-->
-                  <!--</el-button>-->
+                  <el-button type="primary" icon="el-icon-sort">
+                    Calculate
+                  </el-button>
                 </el-card>
               </el-col>
             </el-row>
@@ -97,9 +70,8 @@
         currentFileName: '_Pig Tub 12 uM 10% Alexa647 label_200 nM EB1_50 nM ' +
         'chTOG-RFP_laser488 10%_laser561 10%_laser640 7%_exposuretime 100ms_' +
         'intervaltime 1s_35C--3_',
-        brightnessValue: 50,
-        contrastValue: 40,
-        kymoNum: 1,
+        layersValue: (130 / this.layersNum) * 100,
+        layersNum: 1000,
       };
     },
     components: {

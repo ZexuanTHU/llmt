@@ -12,6 +12,7 @@ import LoadImages from '@/components/LoadImages';
 import CalcTForm from '@/components/CalcTForm';
 import AddMTLine from '@/components/AddMTLine';
 import AddKymograph from '@/components/AddKymograph';
+import CalcMTEnd from '@/components/CalcMTEnd';
 
 Vue.use(Router);
 Vue.use(Element);
@@ -77,6 +78,11 @@ export default new Router({
       path: '/addkymograph',
       name: 'AddKymograph',
       component: AddKymograph,
+    },
+    {
+      path: '/calcmtend',
+      name: 'CalcMTEnd',
+      component: CalcMTEnd,
     },
   ],
 });

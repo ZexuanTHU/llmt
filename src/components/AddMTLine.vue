@@ -12,7 +12,7 @@
           <div style="background: white; padding: 10px;">
             <el-row>
               <el-col :span="4">
-                <block-tag tag-name="Image Space"></block-tag>
+                <block-tag tag-name="Image"></block-tag>
                 <el-card :body-style="{ padding: '0px' }">
                   <img src="../assets/mt.png" class="image">
                   <div style="padding: 14px;">
@@ -31,13 +31,15 @@
                 <p></p>
               </el-col>
               <el-col :span="8">
-                <block-tag tag-name="Image Space"></block-tag>
+                <block-tag tag-name="Operation Space"></block-tag>
                 <el-card class="box-card">
                   <div slot="header" class="clearfix">
                     <span>Actions</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">
-                      Done
-                    </el-button>
+                    <el-tooltip content="Done">
+                      <el-button style="float: right; padding: 5px;" circle
+                                 icon="el-icon-check" type="success">
+                      </el-button>
+                    </el-tooltip>
                   </div>
                   <div class="block">
                     <span class="demonstration">Layers</span>
@@ -51,10 +53,6 @@
                     <el-button type="primary" icon="el-icon-edit">Draw Line
                     </el-button>
                   </el-button-group>
-                  <!--<el-button type="success"-->
-                  <!--plain style="margin-top: 10px">-->
-                  <!--Done-->
-                  <!--</el-button>-->
                 </el-card>
               </el-col>
             </el-row>

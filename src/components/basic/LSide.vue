@@ -46,7 +46,8 @@
               <template slot="title">MT Operations</template>
               <el-menu-item index="1-5-1" route="AddMTLine">Add MT Line
               </el-menu-item>
-              <el-menu-item index="1-5-2">Calc MT End</el-menu-item>
+              <el-menu-item index="1-5-2" route="CalcMTEnd">Calc MT End
+              </el-menu-item>
               <el-menu-item index="1-5-3" route="AddKymograph">Add Kymorgraph
               </el-menu-item>
             </el-submenu>

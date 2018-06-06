@@ -12,15 +12,26 @@
           <div style="background: white; padding: 10px;">
             <block-tag tag-name="Load Bead Files"></block-tag>
             <el-upload
+              show-file-list
+              multiple
+              limit="30"
               class="upload-demo"
+              ref="upload"
               action="https://jsonplaceholder.typicode.com/posts/"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :file-list="fileList2"
-              list-type="picture">
-              <el-button size="small" type="primary">Select...</el-button>
+              :on-exceed="handleExceed"
+              :before-remove="beforeRemove"
+              :file-list="fileList"
+              :auto-upload="false">
+              <el-button slot="trigger" size="small" type="primary">Select...
+              </el-button>
+              <el-button style="margin-left: 10px;" size="small" type="success"
+                         @click="submitUpload">Calc TForm
+              </el-button>
               <div slot="tip" class="el-upload__tip">
-                Allow .tif image up to 20 MB
+                <p>Allow .tif images up to 20MB</p>
+                <p>Support multiple selection</p>
               </div>
             </el-upload>
           </div>
@@ -40,17 +51,38 @@
   import BlockTag from './basic/BlockTag';
 
   export default {
-    name: 'HomePage',
     data() {
-      return {};
+      return {
+        fileList: [],
+      };
     },
     components: {
-      BlockTag,
-      LSide,
-      LHeader,
-      LFooter,
+      LHeader, LSide, LFooter, BlockTag,
     },
-    methods: {},
+    methods: {
+      submitUpload() {
+        this.$refs.upload.submit();
+        this.$message({
+          showClose: true,
+          message: 'TForm calculation done',
+          type: 'success',
+        });
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+      handleExceed(files, fileList) {
+        this.$message.warning(`You selected ${files.length} files this time,
+        you selected ${files.length + fileList.length} files at all,
+        already exceed the limitation`);
+      },
+      beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+    },
   };
 </script>
 

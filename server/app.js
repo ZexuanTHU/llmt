@@ -18,16 +18,8 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}`);
 });
 
-// response
-
-app.context.db = db();
-
-app.use(async (ctx) => {
-  console.log(ctx.db);
-});
-
 app.use(async (ctx) => {
   ctx.body = 'Hello World';
 });
 
-app.listen(3000);
+app.listen(8080);

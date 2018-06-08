@@ -26,7 +26,6 @@
                     v-model="inputValue"
                     :fetch-suggestions="querySearch"
                     placeholder="Please input here"
-                    @select="handleSelect"
                     v-if="active===0 || active===1"
                   >
                   </el-autocomplete>
@@ -40,12 +39,12 @@
                     >
                     <el-table-column
                       prop="name"
-                      label="name"
+                      label="Name"
                     >
                     </el-table-column>
                     <el-table-column
                       prop="value"
-                      label="value"
+                      label="Value"
                     >
                     </el-table-column>
                   </el-table>
@@ -73,17 +72,17 @@
             >
               <el-table-column
                 prop="name"
-                label="name"
+                label="Name"
               >
               </el-table-column>
               <el-table-column
                 prop="value"
-                label="value"
+                label="Value"
               >
               </el-table-column>
               <el-table-column
                 prop="units"
-                label="units"
+                label="Units"
               >
               </el-table-column>
             </el-table>
@@ -104,6 +103,7 @@
   import SideBar from './basic/LSide';
   import LFooter from './basic/LFooter';
   import BlockTag from './basic/BlockTag';
+  import store from '../store/modules/MTWorkspace';
 
   export default {
     name: 'SetUp',
@@ -117,11 +117,12 @@
       return {
         inputValue: '',
         active: 0,
-        states: [
-          {name: 'Scale', value: '1', units: 'nm/pixel'},
-          {name: 'Time Interval', value: '1', units: 's'},
-        ],
       };
+    },
+    computed: {
+      states() {
+        return store.state.states.slice(0, 2);
+      },
     },
     methods: {
       next() {
@@ -133,7 +134,6 @@
               type: 'error',
             });
           } else {
-            console.log(this.inputValue, this.active);
             this.states[this.active].value = this.inputValue;
             this.active++;
           }
@@ -152,6 +152,15 @@
           });
         }
       },
+      handleEmpty(inputValue) {
+        if (inputValue === '') {
+          this.$message({
+            showClose: true,
+            message: 'You cannot skip this step',
+            type: 'error',
+          });
+        }
+      },
       querySearch(queryString, cb) {
         let states = this.states;
         let results = queryString ?
@@ -160,9 +169,9 @@
         cb(results);
       },
       createFilter(queryString) {
-        return (restaurant) => {
+        return (states) => {
 // eslint-disable-next-line max-len
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return (states.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
       loadAll() {
@@ -170,9 +179,6 @@
           {name: 'Scale', value: '1', units: 'nm/pixel'},
           {name: 'Time Interval', value: '3', units: 's'},
         ];
-      },
-      handleSelect(item) {
-        console.log(item);
       },
     },
     mounted() {

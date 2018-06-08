@@ -2,18 +2,20 @@
   <el-table
     :data="workspaceData"
     stripe
+    highlight-current-row=true
+    size="mini"
   >
     <el-table-column
       prop="name"
-      label="name">
+      label="Name">
     </el-table-column>
     <el-table-column
       prop="value"
-      label="value">
+      label="Value">
     </el-table-column>
     <el-table-column
       fixed="right"
-      label="操作"
+      label="View"
       width="100">
       <template slot-scope="scope">
         <el-button @click="dialogVisible = true" type="text"
@@ -39,6 +41,8 @@
 </template>
 
 <script>
+  import store from '../../store/modules/MTWorkspace';
+
   export default {
     methods: {
       handleClick(row) {
@@ -56,11 +60,12 @@
     data() {
       return {
         dialogVisible: false,
-        workspaceData: [
-          {name: 'var1', value: 'val1'},
-          {name: 'var1', value: 'val2'},
-        ],
       };
+    },
+    computed: {
+      workspaceData() {
+        return store.state.states;
+      },
     },
   };
 </script>
